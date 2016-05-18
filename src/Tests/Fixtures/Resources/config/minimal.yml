@@ -2,7 +2,13 @@ m6_web_request_headers_forwarder_guzzle:
     clients:
         test.guzzle1:
             headers: ['x-auth-sample', 'something']
+        test.guzzle2:
+            headers:
+                - 'something-else'
+                - 'oauth-token'
 
 services:
     test.guzzle1:
+        class: 'GuzzleHttp\Client'
+    test.guzzle2:
         class: 'GuzzleHttp\Client'

@@ -22,26 +22,23 @@ class Configuration implements ConfigurationInterface
         $rootNode = $treeBuilder->root('m6_web_request_headers_forwarder_guzzle');
 
         $rootNode
+            ->fixXmlConfig('client')
             ->children()
-
                 ->arrayNode('clients')
                     ->isRequired()
                     ->requiresAtLeastOneElement()
-                    ->useAttributeAsKey('client')
+                    ->useAttributeAsKey('id')
                     ->prototype('array')
+                        ->fixXmlConfig('header')
                         ->children()
-
                             ->arrayNode('headers')
                                 ->isRequired()
                                 ->requiresAtLeastOneElement()
-                                ->useAttributeAsKey('header')
                                 ->prototype('scalar')->end()
                             ->end()
-
                         ->end()
                     ->end()
                 ->end()
-
             ->end();
 
         return $treeBuilder;

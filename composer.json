@@ -2,6 +2,7 @@
     "name": "m6web/request-headers-forwarder-guzzle-bundle",
     "type": "symfony-bundle",
     "description": "Symfony Bundle which fetch some HTTP headers from current request and reuse them in Guzzle clients sub-requests.",
+    "license": "MIT",
     "authors": [
         {
             "name": "Oliver Thébault",

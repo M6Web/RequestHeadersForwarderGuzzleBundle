@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<container
+    xmlns="http://symfony.com/schema/dic/services"
+    xmlns:m6_web_request_headers_forwarder_guzzle="http://example.org/schema/dic/m6_web_request_headers_forwarder_guzzle"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd"
+>
+    <!-- Xml minimal configuration -->
+    <m6_web_request_headers_forwarder_guzzle:config>
+
+        <m6_web_request_headers_forwarder_guzzle:client id="test.guzzle1">
+            <m6_web_request_headers_forwarder_guzzle:header>x-auth-sample</m6_web_request_headers_forwarder_guzzle:header>
+            <m6_web_request_headers_forwarder_guzzle:header>something</m6_web_request_headers_forwarder_guzzle:header>
+        </m6_web_request_headers_forwarder_guzzle:client>
+
+        <m6_web_request_headers_forwarder_guzzle:client id="test.guzzle2">
+            <m6_web_request_headers_forwarder_guzzle:header>something-else</m6_web_request_headers_forwarder_guzzle:header>
+            <m6_web_request_headers_forwarder_guzzle:header>oauth-token</m6_web_request_headers_forwarder_guzzle:header>
+        </m6_web_request_headers_forwarder_guzzle:client>
+
+    </m6_web_request_headers_forwarder_guzzle:config>
+
+    <!-- Fake GuzzleHttp\Client service -->
+    <services>
+        <service id="test.guzzle1" class="GuzzleHttp\Client"/>
+        <service id="test.guzzle2" class="GuzzleHttp\Client"/>
+    </services>
+</container>

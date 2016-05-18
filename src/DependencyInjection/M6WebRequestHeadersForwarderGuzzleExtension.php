@@ -3,6 +3,7 @@
 namespace M6Web\Bundle\RequestHeadersForwarderGuzzleBundle\DependencyInjection;
 
 
+use M6Web\Bundle\RequestHeadersForwarderGuzzleBundle\EventListener\RequestHeadersForwarderListener;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -50,7 +51,7 @@ class M6WebRequestHeadersForwarderGuzzleExtension extends Extension implements C
         $container->setDefinition(
             'm6web.request_headers_forwarder_guzzle.listener.request_headers_forwarder',
             (new Definition(
-                'M6Web\Bundle\RequestHeadersForwarderGuzzleBundle\EventListener\RequestHeadersForwarderListener',
+                RequestHeadersForwarderListener::class,
                 [$clients]
             ))->addTag('kernel.event_listener', ['event' => 'kernel.request'])
         );
