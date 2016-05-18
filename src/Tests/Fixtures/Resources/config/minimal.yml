@@ -1,0 +1,8 @@
+m6_web_request_headers_forwarder_guzzle:
+    clients:
+        test.guzzle1:
+            headers: ['x-auth-sample', 'something']
+
+services:
+    test.guzzle1:
+        class: 'GuzzleHttp\Client'
