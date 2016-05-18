@@ -1,0 +1,7 @@
+# junk
+.DS_Store
+*~
+
+# project
+/vendor/
+/composer.lock
