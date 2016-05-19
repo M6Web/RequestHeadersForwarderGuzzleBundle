@@ -35,8 +35,7 @@ class RequestHeadersForwarderListener
     }
 
     /**
-     * Will forward request headers respectively values for each clients.
-     * Be aware that headers are considered case-insensitive.
+     * Will forward request headers respectively for each clients.
      *
      * @param GetResponseEvent $event
      *
