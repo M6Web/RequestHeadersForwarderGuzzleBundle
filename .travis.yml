@@ -1,18 +1,19 @@
 language: php
 
 php:
-  - 5.5
-  - 7
+    - 5.5
+    - 7
 
 env:
-   - SYMFONY_VERSION=2.7.*
-   - SYMFONY_VERSION=3.0.*
+    - SYMFONY_VERSION=2.7.*
+    - SYMFONY_VERSION=3.0.*
 
 before_script:
-  - wget http://getcomposer.org/composer.phar
-  - php composer.phar require symfony/symfony:${SYMFONY_VERSION} --no-update --dev
-  - php composer.phar update --prefer-dist --no-interaction --dev
+    - phpenv config-rm xdebug.ini # disable xdebug
+    - wget http://getcomposer.org/composer.phar
+    - php composer.phar require symfony/symfony:${SYMFONY_VERSION} --no-update --dev
+    - php composer.phar update --prefer-dist --no-interaction --dev
 
 script:
-  - vendor/bin/coke
-  - vendor/bin/atoum
+    - vendor/bin/coke
+    - vendor/bin/atoum
