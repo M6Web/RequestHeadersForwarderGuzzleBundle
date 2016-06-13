@@ -38,7 +38,7 @@ class M6WebRequestHeadersForwarderGuzzleExtension extends Extension implements C
         foreach ($config['clients'] as $clientServiceId => $clientConfig) {
             // Check $clientServiceId is a Guzzle client service
             if (!$container->hasDefinition($clientServiceId) || !is_a($container->getDefinition($clientServiceId)->getClass(), 'GuzzleHttp\Client', true)) {
-                throw new \InvalidArgumentException('[%s] client is not a valid Guzzle client service.');
+                throw new \InvalidArgumentException(sprintf('[%s] client is not a valid Guzzle client service.', $clientServiceId));
             }
 
             // Add client config to $clients
