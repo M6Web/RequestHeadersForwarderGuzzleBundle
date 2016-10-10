@@ -14,6 +14,8 @@ m6_web_request_headers_forwarder_guzzle:
     clients:
         test.guzzle1:                               # Guzzle client service id
             headers: ['x-auth-sample', 'something'] # Headers that will be forwarded to "test.guzzle1" client requests
+            queries_to_headers: # Optional : Convert query string parameters to headers then forward them
+               x-auth-sample: ['authid'] # Key is desired header and value is an array of query string parameters to forward (If multiple on same request, first one will be used)
 
 services:
     test.guzzle1:
