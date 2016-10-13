@@ -37,6 +37,11 @@ class M6WebRequestHeadersForwarderGuzzleExtension extends atoum\test
                     ->array($guzzleClient2 = $clients['test.guzzle2'])
                         ->array($guzzleClient2['headers'])
                             ->containsValues(['something-else', 'oauth-token'])
+                        ->array($headersFromQueries = $guzzleClient2['queries_to_headers'])
+                            ->array($headersFromQueries['X_Auth_user_id'])
+                                ->containsValues(['user_id', 'uid'])
+                            ->array($headersFromQueries['X_Auth_user_param'])
+                                ->containsValues(['param1', 'param2'])
 
                 // Bundle generated services
                 ->object($definition = $container->getDefinition($requestEventListenerId))
@@ -60,9 +65,6 @@ class M6WebRequestHeadersForwarderGuzzleExtension extends atoum\test
         return [
             // Yaml
             ['yaml'],
-
-            // Xml
-            ['xml'],
         ];
     }
 }

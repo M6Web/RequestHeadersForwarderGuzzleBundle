@@ -32,6 +32,9 @@ class RequestHeadersForwarderListener extends atoum\test
                     'test.guzzle.client' => [
                         'instance' => $guzzleClient,
                         'headers' => ['X-OAUTH-SAMPLE'],
+                        'queries_to_headers' => [
+                            'X_OTHER' => ['foo']
+                        ],
                     ],
                 ]),
 
@@ -41,10 +44,12 @@ class RequestHeadersForwarderListener extends atoum\test
                     'X-OAUTH-SAMPLE' => 'some value',
                     'Random-Header' => 'RandomFTW',
                 ]),
+                $queryParams = ['foo' => 'a', 'bar' => 'b'],
                 $mockedEvent = $this->getEventMock([
                     'getRequest' => $this->getRequestMock([
                         'headers' => $headerBag,
-                    ])
+                        'query' => $this->getQueryParamsMock($queryParams)
+                    ]),
                 ])
             )
             ->if(
@@ -60,6 +65,7 @@ class RequestHeadersForwarderListener extends atoum\test
                 ->array($guzzleClientSentHeaders = $guzzleClientRequests[0]['request']->getHeaders())
                     ->notHasKey('Random-Header')
                     ->hasKey('X-OAUTH-SAMPLE')
+                    ->hasKey('X-OTHER')
                 ->array($guzzleClientSentHeaders['X-OAUTH-SAMPLE'])
                     ->contains('some value')
         ;
@@ -97,6 +103,21 @@ class RequestHeadersForwarderListener extends atoum\test
         foreach ($mockedPropertiesWithResult as $mockedProperty => $mockedResult) {
             $mock->$mockedProperty = $mockedResult;
         }
+
+        return $mock;
+    }
+
+    /**
+     * @param $values
+     * @return \Symfony\Component\HttpFoundation\ParameterBag
+     */
+    protected function getQueryParamsMock($values)
+    {
+        $this->mockGenerator->orphanize('__construct');
+        $this->mockGenerator->shuntParentClassCalls();
+
+        $mock = new \mock\Symfony\Component\HttpFoundation\ParameterBag();
+        $mock->getMockController()->all = $values;
 
         return $mock;
     }

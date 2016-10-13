@@ -45,6 +45,7 @@ class M6WebRequestHeadersForwarderGuzzleExtension extends Extension implements C
             $clients[] = [
                 'instance' => new Reference($clientServiceId),
                 'headers' => $clientConfig['headers'],
+                'queries_to_headers' => $clientConfig['queries_to_headers'],
             ];
         }
 
