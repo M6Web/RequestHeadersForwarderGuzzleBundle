@@ -14,7 +14,7 @@ use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 class RequestHeadersForwarderListener
 {
     /**
-     * @var array As [ ['instance' => GuzzleHttp\Client, 'headers' => ['x-header-1'] ] ]
+     * @var array As [ ['instance' => GuzzleHttp\ClientInterface, 'headers' => ['x-header-1'] ] ]
      */
     private $clients;
 
@@ -26,7 +26,7 @@ class RequestHeadersForwarderListener
     public function __construct(array $clients)
     {
         foreach ($clients as $client) {
-            if (!isset($client['instance']) || !$client['instance'] instanceof GuzzleHttp\Client) {
+            if (!isset($client['instance']) || !$client['instance'] instanceof GuzzleHttp\ClientInterface) {
                 throw new \InvalidArgumentException('Only Guzzle clients are supported.');
             }
         }
