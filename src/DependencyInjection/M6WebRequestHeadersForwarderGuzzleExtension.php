@@ -19,11 +19,16 @@ use Symfony\Component\DependencyInjection\Loader;
 class M6WebRequestHeadersForwarderGuzzleExtension extends Extension implements CompilerPassInterface
 {
     /**
+     * @var array
+     */
+    protected $config;
+
+    /**
      * {@inheritdoc}
      */
     public function load(array $configs, ContainerBuilder $container)
     {
-        $this->processConfiguration(new Configuration(), $configs);
+        $this->config = $this->processConfiguration(new Configuration(), $configs);
     }
 
     /**
@@ -31,11 +36,8 @@ class M6WebRequestHeadersForwarderGuzzleExtension extends Extension implements C
      */
     public function process(ContainerBuilder $container)
     {
-        $configs = $container->getExtensionConfig($this->getAlias());
-        $config = $this->processConfiguration(new Configuration(), $configs);
-
         $clients = [];
-        foreach ($config['clients'] as $clientServiceId => $clientConfig) {
+        foreach ($this->config['clients'] as $clientServiceId => $clientConfig) {
             // Check if $clientServiceId is a Guzzle client service
             if (!$container->hasDefinition($clientServiceId) || !is_a($container->getParameterBag()->resolveValue($container->getDefinition($clientServiceId)->getClass()), 'GuzzleHttp\Client', true)) {
                 throw new \InvalidArgumentException(sprintf('[%s] client is not a valid Guzzle client service.', $clientServiceId));
